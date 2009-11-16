@@ -19,8 +19,6 @@ from googlevoice.util import input
 import commands
 
 
-
-
 try:
     import winxpgui as win32gui
 except ImportError:
@@ -242,13 +240,14 @@ if __name__ == '__main__':
 #TODO require gmail password on startup
 
     def call_number(sysTrayIcon, outgoingNumber):
-        print 'in call_number'
+        print 'in call_number', outgoingNumber
         voice = Voice()
-        gmail_name = open('/installs/gmail_name', 'r').read
+        gmail_name = open('/installs/gmail_name', 'r').read()
         print gmail_name
-        gmail_password = open('/installs/gmail_password', 'r').read
-        print gmail_password
+        gmail_password = open('/installs/gmail_password', 'r').read()
+        #print gmail_password
         voice.login(gmail_name, gmail_password)
+        # todo
         #forwardingNumber = open('/installs/call_here', 'r').read#'8012408783'
         forwardingNumber = '8012408783'
         voice.call(outgoingNumber, forwardingNumber)
@@ -262,7 +261,8 @@ if __name__ == '__main__':
         
     menu_options = (('Say Hello', icons.next(), hello),
                    # ('Edit names', icons.next(), edit),
-                    ('Call Ben', None, lambda sysTrayIcon : sysTrayIcon.call_number('8012408783') ),
+                    ('Call Ben', None, lambda sysTrayIcon : call_number(sysTrayIcon, '(801) 787-1920') ),
+                    ('Call Cell', None, lambda sysTrayIcon : call_number(sysTrayIcon, '+18016916597') ),
                     ('Switch Icon', None, switch_icon),
                     ('A sub-menu', icons.next(), (('Say Hello to Simon', icons.next(), simon),
                                                   ('Switch Icon', icons.next(), switch_icon),
